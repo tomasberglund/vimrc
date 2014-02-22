@@ -72,7 +72,8 @@ filetype plugin indent on
 
 if has("gui_running")
  "set guifont=Ubuntu\ Mono:h18
- set guifont=Ubuntu\ Mono\ derivative\ Powerline:h17
+ " set guifont=Ubuntu\ Mono\ derivative\ Powerline:h17
+ set guifont=Source\ Code\ Pro\ Semibold:h16
  "set guifont=Courier:h17
 endif
 
