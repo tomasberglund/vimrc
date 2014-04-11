@@ -157,4 +157,12 @@ nnoremap <leader>u :GundoToggle<CR>
 let g:ctrlp_working_path_mode = 0     " don't manage working directory
 let g:ctrlp_max_height = 10           " maximum size of match window
 
+
+" Fileformats
+" -------------------------------------------------------------
+"  unix 	LF only (each line ends with an LF character).
+"  dos 	CRLF (each line ends with two characters, CR then LF).
+"  mac 	CR only (each line ends with a CR character). 
+" set fileformat=unix
+
 " //EOF "
