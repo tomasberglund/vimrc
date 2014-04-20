@@ -1,0 +1,157 @@
+"Initial"
+"----------------------------------------------------------------------------"
+set nocompatible                " break away from old vi compatibility
+set fileformats=unix,dos,mac    " support all three newline formats
+set encoding=utf8               " Set utf8 as standard encoding
+syntax enable                   " Enable theme syntax
+
+"Plugins init"
+"----------------------------------------------------------------------------"
+filetype off                    " Required by Vundle
+set rtp+=~/.vim/bundle/vundle/  " Vundle
+call vundle#rc()                " ...
+
+"Vundle Bundles"
+"----------------------------------------------------------------------------"
+Bundle 'gmarik/vundle'
+Bundle 'kien/ctrlp.vim'
+Bundle 'myusuf3/numbers.vim'
+Bundle 'jeetsukumaran/vim-buffergator'
+Bundle 'majutsushi/tagbar'
+Bundle 'scrooloose/nerdtree'
+Bundle 'sjl/gundo.vim'
+Bundle 'tpope/vim-fugitive'
+Bundle 'joonty/vdebug.git'
+Bundle 'joonty/vim-phpqa.git'
+Bundle 'Lokaltog/vim-easymotion'
+
+"Colorschemes"
+"----------------------------------------------------------------------------"
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'chriskempson/base16-vim'
+
+filetype plugin indent on       " Required by Vundle
+
+"Text, console, errors and lists"
+"----------------------------------------------------------------------------"
+set cmdheight=1                 " command line height
+set noswapfile                  " No swapfile
+set nobackup                    " No backup
+set showmode                    " Show mode im in
+set showcmd                     " Show command im typing
+set nowrap                      " No wordwrap
+set number                      " Linenumbering
+set ruler                       " show current position at bottom
+set noerrorbells                " No error bells
+set visualbell t_vb=            " No even visuals
+set lazyredraw                  " don't redraw while in macros
+set scrolloff=5                 " keep at least 5 lines around the cursor
+set wrap                        " soft wrap long lines
+set list                        " show invisible characters
+set listchars=tab:>·,trail:·    " but only show tabs and trailing whitespace
+set wildmenu                    " turn on wild menu :e <Tab>
+set wildmode=list:longest       " set wildmenu to list choice
+
+"Edit and search behavior"
+"----------------------------------------------------------------------------"
+set list listchars=tab:»·,trail:· " Display extra whitespace
+set nohlsearch                    " turn off highlighting for searched expressions
+set incsearch                     " highlight as we search though
+set matchtime=5                   " blink matching chars for .x seconds
+set mouse=a                       " try to use a mouse in the console
+set ignorecase                    " set case insensitivity
+set smartcase                     " unless there's a capital letter
+set completeopt=menu,longest,preview " more autocomplete <Ctrl>-P options
+set nostartofline                 " leave my cursor position alone!
+set backspace=2                   " equiv to :set backspace=indent,eol,start
+set textwidth=80                  " we like 80 columns
+set showmatch                     " show matching brackets
+
+"Indents and tabs"
+"----------------------------------------------------------------------------"
+set autoindent                  " set the cursor at same indent as line above
+set smartindent                 " try to be smart about indenting (C-style)
+set expandtab                   " expand <Tab>s with spaces; death to tabs!
+set shiftwidth=4                " spaces for each step of (auto)indent
+set softtabstop=4               " set virtual tab stop (compat for 8-wide tabs)
+set tabstop=8                   " for proper display of files with tabs
+set shiftround                  " always round indents to multiple of shiftwidth
+set copyindent                  " use existing indents for new indents
+set preserveindent              " save as much indent structure as possible
+
+"Windows"
+"----------------------------------------------------------------------------"
+set noequalalways               " All windows not same size after split or close
+set splitbelow                  " Open new split panes to right and bottom, which feels more natural
+set splitright
+nnoremap <C-J> <C-W><C-J>       " ... instead of ctrl-w then j, it's just ctrl-j
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+"Filetypes"
+"----------------------------------------------------------------------------"
+autocmd BufRead,BufNewFile  *.txt,*.TXT,*.md set filetype=markdown " Force filetype Markdown on *.txt and *.md
+
+"Extra setup if has gui running"
+"----------------------------------------------------------------------------"
+if has("gui_running")
+    set guioptions+=lrb         " Remove scrollbars
+    set guioptions-=lrb         " ...
+    set go-=L                   " ...
+
+    set background=dark
+    " colorscheme solarized
+    colorscheme base16-ocean
+    set guifont=Sauce\ Code\ Powerline\ Semibold:h17
+endif
+
+"Statusline"
+"----------------------------------------------------------------------------"
+" Always show the status line
+set laststatus=2
+
+" Colors
+hi User1 guibg=#b48ead guifg=#eff1f5
+hi User2 guibg=#65737e guifg=#c0c5ce
+hi User3 guibg=#65737e guifg=#ebcb8b
+
+" Statusline
+set statusline=%t         " tail of the filename
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, " file encoding
+set statusline+=%{&ff}]   " file format
+set statusline+=%h        " help file flag
+set statusline+=%m        " modified flag
+set statusline+=%r        " read only flag
+set statusline+=%y        " filetype
+set statusline+=%=        " left/right separator
+set statusline+=%3*       " switch to light highlight
+set statusline+=\ %c      " cursor column
+set statusline+=\ %2*     " switch to light highlight
+set statusline+=%l/%L     " cursor line/total lines
+set statusline+=\ %1*     " switch to dark highlight
+set statusline+=\ %P      " percent through file
+set statusline+=\ %1*     " Some whitespace
+
+"Plugins configuration"
+"----------------------------------------------------------------------------"
+let g:ctrlp_working_path_mode = 0        " Ctrlp: don't manage working directory
+let g:ctrlp_max_height = 10              " Ctrlp: maximum size of match window
+
+"Mappings"
+"----------------------------------------------------------------------------"
+let mapleader = ","                      " Map leader to ,
+nmap <leader>rt :TagbarToggle<CR>        " Tagbar
+map <leader>n :NERDTreeToggle<CR>        " Nerdtree
+nnoremap <leader>d :NERDTree<CR>         " Set NERDTree and CtrlP to point to current directory
+nnoremap <leader>u :GundoToggle<CR>      " Gundo
+nmap <silent> <leader>ev :e $MYVIMRC<CR> " Quickly edit/reload the vimrc file
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+"Snippets"
+"----------------------------------------------------------------------------"
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm 
+noremap <leader>l :!php -l %<CR>
+
+" END OF FILE "

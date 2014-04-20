@@ -1,9 +1,3 @@
-" Useful snippets
-" ------------------------
-" Convert entire buffer to unix (ff=dos for dos) and write
-" :bufdo! set ff=unix|w
-"
-" ------------------------
 " .vimrc - begin
 "
 set nocompatible
@@ -38,20 +32,14 @@ Bundle 'jeetsukumaran/vim-buffergator'
 Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/nerdtree'
 Bundle 'sjl/gundo.vim'
+" Mustache Templating "
+Bundle 'mustache/vim-mustache-handlebars'
 
-" Bundle 'jaromero/vim-monokai-refined'
 " Bundle 'Lokaltog/powerline' "
-" Bundle 'tpope/vim-rails'
 
 " Colors "
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'chriskempson/base16-vim'
-
-" Bundle 'morhetz/gruvbox'
-" Bundle 'vim-scripts/BusyBee'
-" Bundle 'croaker/mustang-vim'
-" Bundle 'abra/obsidian2'
-" Bundle 'flazz/vim-colorschemes'
 
 " XDebug support "
 " Bundle 'brookhong/DBGPavim'
@@ -59,22 +47,25 @@ Bundle 'chriskempson/base16-vim'
 " Git support bundle "
 Bundle 'tpope/vim-fugitive'
 
-" Distraction Free mode
-" Bundle 'bilalq/lite-dfm'
-
 " Airline statusbar
-Bundle 'bling/vim-airline'
+" Bundle 'bling/vim-airline'
 
-Bundle 'airblade/vim-gitgutter'
+" Bundle 'airblade/vim-gitgutter'
 
 " Required by Vundle "
 filetype plugin indent on
 
+" Ack (grep replacement)
+" >brew install ack
+set grepprg=ack
+
 if has("gui_running")
  "set guifont=Ubuntu\ Mono:h18
- " set guifont=Ubuntu\ Mono\ derivative\ Powerline:h17
- set guifont=Source\ Code\ Pro\ Semibold:h16
- "set guifont=Courier:h17
+ "set guifont=Ubuntu\ Mono\ derivative\ Powerline:h19
+ set guifont=Sauce\ Code\ Powerline\ Semibold:h17
+ "set guifont=Sauce\ Code\ Powerline\ Bold:h15
+ " set guifont=Source\ Code\ Pro\ Light:h16
+ "set guifont=Courier:h15
 endif
 
 " Remove scrollbars "
@@ -93,6 +84,9 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 
+" Activate Mustache Templating "
+let g:mustache_abbreviations = 1
+
 " Statusline "
 " format markers: "
 "   %t File name (tail) of file in the buffer "
@@ -108,13 +102,16 @@ set expandtab
 if has("gui")
     " ...
 else
-    set statusline=%t\ %m%r%y%=%{fugitive#statusline()}\ (%l/%L,%c)\ (%P)
+    " set statusline=%t\ %m%r%y%=%{fugitive#statusline()}\ (%l/%L,%c)\ (%P)
 endif
-set laststatus=2
+"! set laststatus=2
+
 "let g:airline#extensions#tabline#enabled = 1
 "let g:airline#extensions#tabline#left_sep = ' '
 "let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_powerline_fonts = 1
+
+"! let g:airline_powerline_fonts = 1
+
 "if !exists('g:airline_symbols')
 ""  let g:airline_symbols = {}
 "endif
@@ -123,7 +120,10 @@ let g:airline_powerline_fonts = 1
 " Enable colorscheme only if in Gui (MacVim) "
 if has("gui")
 	set background=dark
-	colorscheme base16-ocean
+	"colorscheme base16-ocean
+    " colorscheme base16-solarized
+    colorscheme solarized
+    " colorscheme base16-bespin
 endif
 
 " All windows not same size after split or close "
@@ -132,14 +132,31 @@ set noequalalways
 " Force filetype Markdown on *.txt and *.md "
 autocmd BufRead,BufNewFile  *.txt,*.TXT,*.md set filetype=markdown
 
+" Display extra whitespace
+set list listchars=tab:»·,trail:·
+
 " Tagbar "
 nmap <leader>rt :TagbarToggle<CR>
 
 " Nerdtree "
 map <leader>n :NERDTreeToggle<CR>
 
+" Set NERDTree and CtrlP to point to current directory "
+nnoremap <leader>d :NERDTree<CR>
+
 " Gundo "
 nnoremap <leader>u :GundoToggle<CR>
+
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
+
+" Window Splits "
+" ... instead of ctrl-w then j, it's just ctrl-j "
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " DFM "
 " nnoremap <leader>z :LiteDFMToggle<CR>i<Esc>
