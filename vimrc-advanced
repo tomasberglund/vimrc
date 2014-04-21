@@ -7,26 +7,18 @@ syntax enable                   " Enable theme syntax
 
 "Plugins init"
 "----------------------------------------------------------------------------"
+filetype on                     " without this vim emits a zero exit status, later, because of :ft off
 filetype off                    " Required by Vundle
 set rtp+=~/.vim/bundle/vundle/  " Vundle
 call vundle#rc()                " ...
 
 "Vundle Bundles"
 "----------------------------------------------------------------------------"
-Bundle 'gmarik/vundle'
-Bundle 'kien/ctrlp.vim'
-Bundle 'myusuf3/numbers.vim'
-Bundle 'jeetsukumaran/vim-buffergator'
-Bundle 'majutsushi/tagbar'
-Bundle 'scrooloose/nerdtree'
-Bundle 'sjl/gundo.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
-
-"Colorschemes"
-"----------------------------------------------------------------------------"
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'chriskempson/base16-vim'
+if filereadable(expand("~/.vimrc.bundles"))
+  source ~/.vimrc.bundles
+  " Local modifications
+  source ~/.vimrc.bundles.local
+endif
 
 filetype plugin indent on       " Required by Vundle
 
@@ -44,14 +36,12 @@ set noerrorbells                " No error bells
 set visualbell t_vb=            " No even visuals
 set lazyredraw                  " don't redraw while in macros
 set scrolloff=5                 " keep at least 5 lines around the cursor
-set wrap                        " soft wrap long lines
-set list                        " show invisible characters
-set listchars=tab:>·,trail:·    " but only show tabs and trailing whitespace
 set wildmenu                    " turn on wild menu :e <Tab>
 set wildmode=list:longest       " set wildmenu to list choice
 
 "Edit and search behavior"
 "----------------------------------------------------------------------------"
+let mapleader = ","               " Map leader to ,
 set list listchars=tab:»·,trail:· " Display extra whitespace
 set nohlsearch                    " turn off highlighting for searched expressions
 set incsearch                     " highlight as we search though
@@ -121,7 +111,7 @@ hi User3 guibg=#65737e guifg=#ebcb8b
 hi User4 guibg=#4f5b66 guifg=#a3be8c
 hi User5 guibg=#4f5b66 guifg=#ebcb8b
 
-" Statusline
+" Build the statusline
 set statusline=%t         " tail of the filename
 set statusline+=\ [%{strlen(&fenc)?&fenc:'none'}, " file encoding
 set statusline+=%{&ff}]   " file format
@@ -142,25 +132,20 @@ set statusline+=\ %1*     " switch colors
 set statusline+=\ %P      " percent through file
 set statusline+=\ %1*     " Some whitespace
 
-"Plugins configuration"
-"----------------------------------------------------------------------------"
-let g:ctrlp_working_path_mode = 0        " Ctrlp: don't manage working directory
-let g:ctrlp_max_height = 10              " Ctrlp: maximum size of match window
-
 "Mappings"
 "----------------------------------------------------------------------------"
-let mapleader = ","                      " Map leader to ,
-nmap <leader>rt :TagbarToggle<CR>        " Tagbar
-map <leader>n :NERDTreeToggle<CR>        " Nerdtree
-nnoremap <leader>d :NERDTree<CR>         " Set NERDTree and CtrlP to point to current directory
-nnoremap <leader>u :GundoToggle<CR>      " Gundo
-nmap <silent> <leader>ev :e $MYVIMRC<CR> " Quickly edit/reload the vimrc file
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
+nmap <silent> <leader>ev :e $MYVIMRC<CR> " Edit the vimrc file
+nmap <silent> <leader>sv :so $MYVIMRC<CR>" Reload the vimrc file
 
 "Snippets"
 "----------------------------------------------------------------------------"
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm 
 noremap <leader>l :!php -l %<CR>
+
+" Local modifications
+if filereadable(expand("~/.vimrc.local"))
+  source ~/.vimrc.local
+endif
 
 " END OF FILE "
