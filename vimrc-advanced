@@ -15,9 +15,11 @@ call vundle#rc()                " ...
 "Vundle Bundles"
 "----------------------------------------------------------------------------"
 if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
-  " Local modifications
-  source ~/.vimrc.bundles.local
+    source ~/.vimrc.bundles
+    " Local modifications
+    if filereadable(expand("~/.vimrc.bundles.local"))
+        source ~/.vimrc.bundles.local
+    endif
 endif
 
 filetype plugin indent on       " Required by Vundle
