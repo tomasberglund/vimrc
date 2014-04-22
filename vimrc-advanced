@@ -4,6 +4,7 @@ set nocompatible                " break away from old vi compatibility
 set fileformats=unix,dos,mac    " support all three newline formats
 set encoding=utf8               " Set utf8 as standard encoding
 syntax enable                   " Enable theme syntax
+let mapleader = ","             " Map leader to ,
 
 "Plugins init"
 "----------------------------------------------------------------------------"
@@ -43,7 +44,6 @@ set wildmode=list:longest       " set wildmenu to list choice
 
 "Edit and search behavior"
 "----------------------------------------------------------------------------"
-let mapleader = ","               " Map leader to ,
 set list listchars=tab:»·,trail:· " Display extra whitespace
 set nohlsearch                    " turn off highlighting for searched expressions
 set incsearch                     " highlight as we search though
