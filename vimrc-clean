@@ -4,7 +4,7 @@ set nocompatible                " break away from old vi compatibility
 set fileformats=unix,dos,mac    " support all three newline formats
 set encoding=utf8               " Set utf8 as standard encoding
 syntax enable                   " Enable theme syntax
-let mapleader = ","             " Map leader to ,
+let mapleader = "\<Space>"      " Map leader to space
 
 "Plugins init"
 "----------------------------------------------------------------------------"
@@ -91,11 +91,9 @@ if has("gui_running")
     set go-=L                   " ...
 
     set background=dark
-    color base16-ocean
-    "color base16-solarized
-    "color base16-default
-    set guifont=Sauce\ Code\ Powerline\ Semibold:h16
-    "set guifont=Courier:h16
+    " color base16-ocean
+    color solarized
+    set guifont=Sauce\ Code\ Powerline\ Semibold:h17
 endif
 
 "Statusline"
@@ -111,19 +109,20 @@ set laststatus=2
 " Yellow #ebcb8b
 " Orange #d08770
 " White  #eff1f5
-hi User1 guibg=#b48ead guifg=#eff1f5
-hi User2 guibg=#65737e guifg=#c0c5ce
-hi User3 guibg=#65737e guifg=#ebcb8b
-hi User4 guibg=#4f5b66 guifg=#a3be8c
-hi User5 guibg=#4f5b66 guifg=#ebcb8b
+" -------------------
+"hi User1 guibg=#b48ead guifg=#eff1f5
+"hi User2 guibg=#65737e guifg=#c0c5ce
+"hi User3 guibg=#65737e guifg=#ebcb8b
+"hi User4 guibg=#4f5b66 guifg=#a3be8c
+"hi User5 guibg=#4f5b66 guifg=#ebcb8b
 
 " Solarized Colors
 " ----------------
-"hi User1 guibg=#073642 guifg=#073642
-"hi User2 guibg=#002b36 guifg=#5f8c0d
-"hi User3 guibg=#002b36 guifg=#5f8c0d
-"hi User4 guibg=#93a1a1 guifg=#002b36
-"hi User5 guibg=#93a1a1 guifg=#002b36
+hi User1 guibg=#073642 guifg=#073642
+hi User2 guibg=#002b36 guifg=#5f8c0d
+hi User3 guibg=#002b36 guifg=#5f8c0d
+hi User4 guibg=#93a1a1 guifg=#002b36
+hi User5 guibg=#93a1a1 guifg=#002b36
 
 " Build the statusline
 set statusline=%t         " tail of the filename
@@ -134,29 +133,31 @@ set statusline+=\ %m      " modified flag
 set statusline+=%r        " read only flag
 set statusline+=%y        " filetype
 set statusline+=%=        " left/right separator
-set statusline+=\ %4*     " switch colors
-set statusline+=%{fugitive#statusline()} " Git branch
-set statusline+=%3*       " switch colors
-set statusline+=\ %c      " cursor column
-set statusline+=\ %2*     " switch colors
-set statusline+=%l/%L     " cursor line/total lines
-set statusline+=\ %1*     " switch colors
-set statusline+=\ %P      " percent through file
-set statusline+=\ %1*     " Some whitespace
-
 
 "Mappings"
 "----------------------------------------------------------------------------"
-nmap <silent> <leader>ev :e $MYVIMRC<CR> " Edit the vimrc file
-nmap <silent> <leader>sv :so $MYVIMRC<CR>" Reload the vimrc file
+nnoremap <Leader>o :CtrlP<CR> 		" CtrlP open file
+nnoremap <Leader>w :w<CR>     		" Save file :w
+
+" Copy & paste to system clipboard with <Space>p and <Space>y "
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
 
 "Snippets"
 "----------------------------------------------------------------------------"
 " Remove the Windows ^M - when the encodings gets messed up
-noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-noremap <leader>l :!php -l %<CR>
+nnoremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm 
+nnoremap <leader>l :!php -l %<CR>
 
-" Local modifications
+" .less to .css , lessc is required.
+nnoremap <Leader>m :w <BAR> !lessc % > %:t:r.css<CR><space>
+
+"Local modifications"
+"----------------------------------------------------------------------------"
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif

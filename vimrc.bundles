@@ -7,14 +7,21 @@ Bundle 'jeetsukumaran/vim-buffergator'
 Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/nerdtree'
 Bundle 'sjl/gundo.vim'
+Bundle 'groenewege/vim-less'
 Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
+" Bundle 'vim-scripts/rstatusline'
+" Bundle 'bling/vim-bufferline'
+" Bundle 'Lokaltog/vim-easymotion'
 " Bundle 'airblade/vim-gitgutter'
+" Bundle 'xsbeats/vim-blade'
+Bundle 'mustache/vim-mustache-handlebars'
+Bundle 'tobyS/pdv'
 
 "Colorschemes"
 "----------------------------------------------------------------------------"
-Bundle 'altercation/vim-colors-solarized'
+" Bundle 'altercation/vim-colors-solarized'
 Bundle 'chriskempson/base16-vim'
+" Bundle "daylerees/colour-schemes", { "rtp": "vim/" }
 
 "Plugins configuration"
 "----------------------------------------------------------------------------"
@@ -27,3 +34,7 @@ nmap <leader>rt :TagbarToggle<CR>        " Tagbar
 map <leader>n :NERDTreeToggle<CR>        " Nerdtree
 nnoremap <leader>d :NERDTree<CR>         " Set NERDTree and CtrlP to point to current directory
 nnoremap <leader>u :GundoToggle<CR>      " Gundo
+
+" PHP DocBlocks "
+let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
+nnoremap <leader>p :call pdv#DocumentCurrentLine()<CR>
