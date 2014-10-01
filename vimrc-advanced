@@ -96,6 +96,7 @@ if has("gui_running")
     "color base16-default
     set guifont=Sauce\ Code\ Powerline\ Semibold:h16
     "set guifont=Courier:h16
+    "set transparency=10
 endif
 
 "Statusline"
